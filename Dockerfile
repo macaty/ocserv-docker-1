@@ -25,7 +25,7 @@ RUN buildDeps=" \
 		xz \
 	"; \
 	set -x \
-	&& apk add --update --virtual .build-deps $buildDeps \
+	&& apk update && apk add --update --virtual .build-deps $buildDeps \
 	&& curl -SL "ftp://ftp.infradead.org/pub/ocserv/ocserv-$OC_VERSION.tar.xz" -o ocserv.tar.xz \
 	&& curl -SL "ftp://ftp.infradead.org/pub/ocserv/ocserv-$OC_VERSION.tar.xz.sig" -o ocserv.tar.xz.sig \
 	&& gpg --keyserver pgp.mit.edu --recv-key 7F343FA7 \
@@ -68,4 +68,4 @@ COPY docker-entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
 
 EXPOSE 443/tcp 443/udp
-CMD ["ocserv", "-c", "/etc/ocserv/ocserv.conf", "-f"]
+CMD ["ocserv", "-c", "/etc/ocserv/ocserv.conf", "-f", "-d 1"]
